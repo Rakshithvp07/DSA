@@ -36,7 +36,7 @@ int main() {
  printf("Result = %lf\n", result);
  return 0;
 }
-#TOWER OF HANOI
+//TOWER OF HANOI
 #include <stdio.h>
 void Transfer(int n, char source, char temp, char dest)
 {
