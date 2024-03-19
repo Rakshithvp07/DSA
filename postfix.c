@@ -1,84 +1,59 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
-
-int op1, op2, res, i, top = -1, s[10], ele, n;
-
-void push(int ele) {
-    top++;
-    s[top] = ele;
+double compute(double operand1, char operator, double operand2) {
+ switch (operator) {
+ case '+': return operand1 + operand2;
+ case '-': return operand1 - operand2;
+ case '*': return operand1 * operand2;
+ case '/': return operand1 / operand2;
+ case '%': return fmod(operand1, operand2);
+ case '^': return pow(operand1, operand2);
+ default:
+ exit(0);
+ }
 }
-
-int pop() {
-    int ele;
-    ele = s[top];
-    top--;
-    return ele;
+double evaluate(char postfix[]) {
+ int i, top = -1;
+ double stack[20], operand1, operand2;
+ for (i = 0; postfix[i] != '\0'; i++) {
+ if (postfix[i] >= '0' && postfix[i] <= '9') {
+ stack[++top] = postfix[i] - '0';
+ } else {
+ operand2 = stack[top--];
+ operand1 = stack[top--];
+ stack[++top] = compute(operand1, postfix[i], operand2);
+ }
+ }
+ return stack[top--];
 }
-
-void eval() {
-    int e;
-    char postfix[20], ch;
-    printf("Enter the postfix expression: ");
-    scanf("%s", postfix);
-    for (i = 0; postfix[i] != '\0'; i++) {
-        ch = postfix[i];
-        if (isdigit(ch))
-            push(ch - '0');
-        else {
-            op2 = pop();
-            op1 = pop();
-            switch (ch) {
-                case '+':
-                    res = op1 + op2;
-                    break;
-                case '-':
-                    res = op1 - op2;
-                    break;
-                case '*':
-                    res = op1 * op2;
-                    break;
-                case '/':
-                    res = op1 / op2;
-                    break;
-                case '^':
-                    res = pow(op1, op2);
-                    break;
-            }
-            push(res);
-        }
-    }
-    printf("Result of postfix expression: %d\n", res);
-}
-
-void tow(int n, char s, char t, char d) {
-    if (n == 1) {
-        printf("Move disk 1 from %c to %c\n", s, d);
-        return;
-    }
-    tow(n - 1, s, d, t);
-    printf("Move disk %d from %c to %c\n", n, s, d);
-    tow(n - 1, t, s, d);
-}
-
 int main() {
-    int ch;
-    do {
-        printf("1: Evaluation of postfix expression\n2: Tower of Hanoi\n");
-        printf("Enter your choice: ");
-        scanf("%d", &ch);
-        switch (ch) {
-            case 1:
-                eval();
-                break;
-            case 2:
-                // Assuming you have the number of disks 'n' as input
-                printf("Enter the number of disks: ");
-                scanf("%d", &n);
-                tow(n, 'A', 'B', 'C');
-                break;
-            default:
-                printf("Invalid choice\n");
-        }
-    } while (ch <= 2);
-    return 0;
+ char postfix[20];
+ double result;
+ printf("Enter Postfix expression: ");
+ scanf("%s", postfix);
+ result = evaluate(postfix);
+ printf("Result = %lf\n", result);
+ return 0;
+}
+#TOWER OF HANOI
+#include <stdio.h>
+void Transfer(int n, char source, char temp, char dest)
+{
+ if (n == 0) return;
+
+ Transfer(n - 1, source, dest, temp);
+
+ printf("Move disk %d from %c to %c\n", n, source, dest);
+
+ Transfer(n - 1, temp, source, dest);
+}
+void main()
+{
+ int n;
+
+ printf("Enter number of disks : ");
+ scanf("%d", &n);
+
+ Transfer(n, 'A', 'B', 'C');
 }
