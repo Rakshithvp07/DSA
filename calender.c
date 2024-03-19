@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// Structure for a day in the calendar
 struct Day {
 char *dayName;
 int date;
 char *activityDescription;
 };
-// Function to create the calendar
 struct Day *create() {
 struct Day *calendar = (struct Day *)malloc(7 * sizeof(struct Day));
 if (calendar == NULL) {
@@ -16,7 +14,6 @@ exit(1);
 }
 return calendar;
 }
-// Function to read data for each day
 void read(struct Day *calendar) {
 for (int i = 0; i < 7; ++i) {
 printf("Enter the name of the day: ");
@@ -33,7 +30,6 @@ calendar[i].activityDescription = (char *)malloc((strlen(tempDesc) + 1) * sizeof
 strcpy(calendar[i].activityDescription, tempDesc);
 }
 }
-// Function to display the calendar
 void display(struct Day *calendar) {
 printf("\nCalendar Details:\n");
 for (int i = 0; i < 7; ++i) {
@@ -42,7 +38,6 @@ printf("Date: %d\n", calendar[i].date);
 printf("Activity: %s\n\n", calendar[i].activityDescription);
 }
 }
-// Function to free allocated memory
 void freeMemory(struct Day *calendar) {
 for (int i = 0; i < 7; ++i) {
 free(calendar[i].dayName);
