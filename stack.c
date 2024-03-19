@@ -11,7 +11,6 @@ void push(int ele) {
     top++;
     s[top] = ele;
 }
-
 int pop() {
     int ele;
     if (top == -1) {
@@ -22,7 +21,6 @@ int pop() {
     top--;
     return ele;
 }
-
 void display() {
     if (top == -1) {
         printf("Stack underflow");
@@ -33,7 +31,6 @@ void display() {
         printf("%d\n", s[i]);
 }
 void pal() {
-    top = -1;
     int i = 1, len = 0, rev = 0, digit, temp, n;
     printf("Enter a Number: ");
     scanf("%d", &n);
